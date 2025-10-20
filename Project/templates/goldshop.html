@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nearest Gold Shops - Chengannur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <style>
+        body { font-family: Arial; text-align:center; margin:0; padding:0; background:#f2f2f2; }
+        header { background:#0077b6; color:white; padding:15px; display:flex; justify-content:space-between; }
+        header a { color:white; text-decoration:none; font-weight:bold; }
+        #map { height:500px; width:90%; margin:20px auto; border-radius:10px; }
+    </style>
+</head>
+<body>
+
+<header>
+  <div>🗺️ Nearest Gold Shops - Chengannur</div>
+  <div><a href="/predict">Predict Gold Price</a> | <a href="/logout">Logout</a></div>
+</header>
+
+<div id="map"></div>
+
+<script>
+    // Center map on Chengannur
+    var map = L.map('map').setView([9.3268, 76.5714], 15);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Add a marker for Chengannur as the current location
+    L.marker([9.3268, 76.5714]).addTo(map)
+        .bindPopup("📍 Chengannur - Current Location").openPopup();
+
+    // Add gold shops around Chengannur
+    var shops = [
+        {name: "Edimannical", lat: 9.3285, lon: 76.5732},
+        {name: "Sky Jwellery", lat: 9.3240, lon: 76.5700},
+        {name: "Pulimoottil jewellers", lat: 9.3302, lon: 76.5695},
+        {name: "New Rajadani Gold and Diamonds", lat: 9.3270, lon: 76.5740},
+        {name: "Vismaya Gold ", lat: 9.3255, lon: 76.5720}
+    ];
+
+    shops.forEach(function(shop) {
+        L.marker([shop.lat, shop.lon]).addTo(map)
+            .bindPopup("🏪 " + shop.name);
+    });
+</script>
+
+</body>
+</html>
